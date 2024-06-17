@@ -1,0 +1,21 @@
+{
+  "name": "simple-reddit",
+  "version": "1.0.0",
+  "description": "A simple Reddit-like website for posting text and comments",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "reddit",
+    "nodejs",
+    "express",
+    "comments"
+  ],
+  "author": "doja",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
