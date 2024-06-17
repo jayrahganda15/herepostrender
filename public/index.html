@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Reddit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Simple Reddit</h1>
+  <form action="/post" method="POST">
+    <textarea name="text" placeholder="Write something..." required></textarea>
+    <button type="submit">Post</button>
+  </form>
+  <div id="posts"></div>
+
+  <script>
+    async function loadPosts() {
+      const response = await fetch('/posts');
+      const posts = await response.json();
+      const postsDiv = document.getElementById('posts');
+      postsDiv.innerHTML = '';
+      posts.forEach(post => {
+        const postDiv = document.createElement('div');
+        postDiv.classList.add('post');
+        postDiv.innerHTML = `
+          <p>${post.text}</p>
+          <form action="/comment" method="POST">
+            <input type="hidden" name="postId" value="${post.id}">
+            <input type="text" name="comment" placeholder="Write a comment..." required>
+            <button type="submit">Comment</button>
+          </form>
+          <div class="comments">
+            ${post.comments.map(comment => `<p>${comment}</p>`).join('')}
+          </div>
+        `;
+        postsDiv.appendChild(postDiv);
+      });
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>
